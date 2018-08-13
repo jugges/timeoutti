@@ -15,6 +15,10 @@ namespace Timeoutti
         public MainForm()
         {
             InitializeComponent();
+            stopwatch.Start();
+            Thread.Sleep(1000);
+            update.Start();
+            LoadBreaks();
         }
 
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -27,10 +31,7 @@ namespace Timeoutti
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            stopwatch.Start();
-            Thread.Sleep(1000);
-            update.Start();
-            LoadBreaks();
+
         }
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,6 +76,7 @@ namespace Timeoutti
             progressBar.Value = 0;
             progressBar.Maximum = breakTime * 60;
             progressBarValueChanger.Start();
+            Show();
         }
 
         private void StopBreak()
