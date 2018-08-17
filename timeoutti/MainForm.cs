@@ -31,7 +31,9 @@ namespace Timeoutti
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            Size = Properties.Settings.Default.MainFormSize;
+            Location = Properties.Settings.Default.MainFormLocation;
+            timeLabel.Font = new Font(timeLabel.Font.FontFamily, Height / 5 + Width / 7, FontStyle.Regular);
         }
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,7 +44,7 @@ namespace Timeoutti
 
         private void LoadBreaks()
         {
-            int countrows=0;
+            int countrows = 0;
             string readLine;
             StreamReader reader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "\\breaks.txt");
             int totalrows = int.Parse(reader.ReadLine());
@@ -67,16 +69,19 @@ namespace Timeoutti
             timeLabel.Hide();
 
             breakPanel.Show();
+            startBreakBtn.Show();
             breakDone = false;
             finishBreakBtn.Text = "Skip Break";
             finishBreakBtn.BackColor = Color.Gray;
-            currentTimeLbl.Text = "Time: "+currentTime;
-            breakTimeLbl.Text = "Break Time: "+breakTime+" (minutes)";
+            currentTimeLbl.Text = "Time: " + currentTime;
+            breakTimeLbl.Text = "Break Time: " + breakTime + " (minutes)";
 
             progressBar.Value = 0;
             progressBar.Maximum = breakTime * 60;
-            progressBarValueChanger.Start();
             Show();
+            Console.Beep(500, 500);
+            Console.Beep(500, 500);
+            Console.Beep(500, 500);
         }
 
         private void StopBreak()
@@ -109,7 +114,7 @@ namespace Timeoutti
                 StopBreak();
             else
             {
-                if (MessageBox.Show("Are you sure you want to skip this break?", "Alert", MessageBoxButtons.YesNo,MessageBoxIcon.Information)==DialogResult.Yes)
+                if (MessageBox.Show("Are you sure you want to skip this break?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     StopBreak();
             }
         }
@@ -141,6 +146,39 @@ namespace Timeoutti
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.MainFormSize = Size;
+            Properties.Settings.Default.MainFormLocation = Location;
+            Properties.Settings.Default.Save();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            timeLabel.Font = new Font(timeLabel.Font.FontFamily, Height / 5 + Width / 7, FontStyle.Regular);
+        }
+
+        private void aFKToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (aFKToolStripMenuItem.Checked)
+            {
+                stopwatch.Stop();
+                update.Stop();
+            }
+            else
+            {
+                stopwatch.Start();
+                update.Start();
+            }
+
+        }
+
+        private void startBreakBtn_Click(object sender, EventArgs e)
+        {
+            progressBarValueChanger.Start();
+            startBreakBtn.Hide();
         }
     }
 }
