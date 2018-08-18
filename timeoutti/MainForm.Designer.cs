@@ -33,6 +33,7 @@
             this.timeLabel = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIconContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aFKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.update = new System.Windows.Forms.Timer(this.components);
@@ -40,10 +41,9 @@
             this.breakPanel = new System.Windows.Forms.Panel();
             this.breakTimeLbl = new System.Windows.Forms.Label();
             this.currentTimeLbl = new System.Windows.Forms.Label();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.finishBreakBtn = new System.Windows.Forms.Button();
-            this.aFKToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startBreakBtn = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.notifyIconContextMenuStrip.SuspendLayout();
             this.breakPanel.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +76,14 @@
             this.quitToolStripMenuItem});
             this.notifyIconContextMenuStrip.Name = "notifyIconContextMenuStrip";
             this.notifyIconContextMenuStrip.Size = new System.Drawing.Size(117, 70);
+            // 
+            // aFKToolStripMenuItem
+            // 
+            this.aFKToolStripMenuItem.CheckOnClick = true;
+            this.aFKToolStripMenuItem.Name = "aFKToolStripMenuItem";
+            this.aFKToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.aFKToolStripMenuItem.Text = "AFK";
+            this.aFKToolStripMenuItem.Click += new System.EventHandler(this.aFKToolStripMenuItem_Click);
             // 
             // testToolStripMenuItem
             // 
@@ -137,15 +145,6 @@
             this.currentTimeLbl.TabIndex = 10;
             this.currentTimeLbl.Text = "Time";
             // 
-            // progressBar
-            // 
-            this.progressBar.BackColor = System.Drawing.SystemColors.Control;
-            this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBar.Location = new System.Drawing.Point(0, 0);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(706, 373);
-            this.progressBar.TabIndex = 9;
-            // 
             // finishBreakBtn
             // 
             this.finishBreakBtn.BackColor = System.Drawing.Color.Gray;
@@ -158,14 +157,6 @@
             this.finishBreakBtn.UseVisualStyleBackColor = false;
             this.finishBreakBtn.Click += new System.EventHandler(this.finishBreakBtn_Click);
             // 
-            // aFKToolStripMenuItem
-            // 
-            this.aFKToolStripMenuItem.CheckOnClick = true;
-            this.aFKToolStripMenuItem.Name = "aFKToolStripMenuItem";
-            this.aFKToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aFKToolStripMenuItem.Text = "AFK";
-            this.aFKToolStripMenuItem.Click += new System.EventHandler(this.aFKToolStripMenuItem_Click);
-            // 
             // startBreakBtn
             // 
             this.startBreakBtn.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -176,6 +167,15 @@
             this.startBreakBtn.Text = "Start Break";
             this.startBreakBtn.UseVisualStyleBackColor = true;
             this.startBreakBtn.Click += new System.EventHandler(this.startBreakBtn_Click);
+            // 
+            // progressBar
+            // 
+            this.progressBar.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressBar.Location = new System.Drawing.Point(0, 0);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(706, 373);
+            this.progressBar.TabIndex = 9;
             // 
             // MainForm
             // 
@@ -190,6 +190,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.notifyIconContextMenuStrip.ResumeLayout(false);
             this.breakPanel.ResumeLayout(false);

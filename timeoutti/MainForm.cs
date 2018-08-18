@@ -180,5 +180,11 @@ namespace Timeoutti
             progressBarValueChanger.Start();
             startBreakBtn.Hide();
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+                Close();
+        }
     }
 }
