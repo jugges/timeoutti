@@ -24,7 +24,7 @@ namespace Timeoutti
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (Visible)
-                Hide();
+                Close();
             else
                 Show();
         }
@@ -79,9 +79,12 @@ namespace Timeoutti
             progressBar.Value = 0;
             progressBar.Maximum = breakTime * 60;
             Show();
-            Console.Beep(500, 500);
-            Console.Beep(500, 500);
-            Console.Beep(500, 500);
+            new Thread(() =>
+            {
+                Console.Beep(500, 500);
+                Console.Beep(500, 500);
+                Console.Beep(500, 500);
+            }).Start();
         }
 
         private void StopBreak()
@@ -114,8 +117,12 @@ namespace Timeoutti
                 StopBreak();
             else
             {
-                if (MessageBox.Show("Are you sure you want to skip this break?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                if (MessageBox.Show("Are you sure you want to skip this break?", "Alert", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Information) == DialogResult.Yes)
+                {
+                    breakDone = true;
                     StopBreak();
+                }
             }
         }
 
@@ -138,7 +145,8 @@ namespace Timeoutti
         {
             if (e.CloseReason != CloseReason.ApplicationExitCall)
             {
-                Hide();
+                if (breakDone)
+                    Hide();
                 e.Cancel = true;
             }
         }
@@ -183,7 +191,7 @@ namespace Timeoutti
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
                 Close();
         }
     }
